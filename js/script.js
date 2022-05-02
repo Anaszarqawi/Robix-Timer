@@ -4,8 +4,8 @@ let int = null;
 
 var run = false
 
-$(document).on('keypress', function(asciCode) {
-
+$(document).on('keypress', asciCode => {
+    asciCode.preventDefault();
     if (asciCode.which == 32) {
         if (run == false) {
             run = true;
@@ -19,6 +19,8 @@ $(document).on('keypress', function(asciCode) {
         }
     }
 });
+
+
 
 function displayTimer() {
     milliseconds += 1;
