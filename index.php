@@ -15,9 +15,8 @@
     <div class="container">
         <div class="scramble">D2 B2 U2 B2 L' U2 L R2 B2 L R U' F' U' L' U' B2 D L2</div>
         <div class="timer">00 . 00</div>
-        <div class="list">
-            <?php include './php/item.php' ?>
-            <?php include './php/item.php' ?>
+        <div class="menuScores">
+            <ul class="scores"></ul>
         </div>
     </div>
     <script>
