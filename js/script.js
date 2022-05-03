@@ -2,9 +2,27 @@ var Scrambow = require('scrambow').Scrambow;
 
 let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
 let timer = $('.timer')
-let int = null;
 
+let int = null;
 var run = false
+var scores = [];
+var scoreID = 0;
+
+var threebythree = new Scrambow(); // Defaults to 3x3
+
+$(document).ready(function() {
+    if (localStorage.getItem("scoreID") == null || localStorage.getItem("scores") == null) {
+        localStorage.setItem("scores", []);
+        localStorage.setItem("scoreID", 0);
+        scoreID = +localStorage.getItem("scoreID")
+    } else
+        scoreID = +localStorage.getItem("scoreID")
+
+    scores = JSON.parse(localStorage.getItem("scores"))
+    generateScramble()
+    printScores(scores)
+
+});
 
 $(document).on('keypress', asciCode => {
     asciCode.preventDefault();
@@ -18,10 +36,40 @@ $(document).on('keypress', asciCode => {
             run = false
             timer.css("transform", "scale(1.0)");
             clearInterval(int);
+
+            generateScramble()
+            addToStorage()
+            printScores(scores)
         }
     }
 });
 
+const printScores = (scores) => {
+    var scoresElement = $(".scores")
+    scoresElement.empty();
+
+    var reversedScores = scores.slice().reverse();
+    reversedScores.forEach(scoreID => {
+        scoresElement.append(`<il class='score'>${scoreID.time}</il>`)
+    });
+}
+
+const generateScramble = () => {
+    $(".scramble").text(threebythree.get()[0].scramble_string);
+}
+
+const addToStorage = () => {
+    var timeValue = +$('.timer').text().replace(/\s/g, '')
+    var scramble = $('.scramble').text()
+    scoreID = localStorage.getItem("scoreID")
+
+    scores[scoreID++] = ({
+        "time": timeValue,
+        "scramble": scramble,
+    })
+    localStorage.setItem("scoreID", scoreID);
+    localStorage.setItem("scores", JSON.stringify(scores));
+}
 
 function displayTimer() {
     milliseconds += 1;
@@ -48,7 +96,3 @@ function displayTimer() {
 
     }
 }
-
-var threebythree = new Scrambow(); // Defaults to 3x3
-
-$(".scramble").text(threebythree.get()[0].scramble_string);
