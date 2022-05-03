@@ -1,0 +1,24 @@
+{
+    "name": "robix-timer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "browserify ./js/script.js -o ./js/bundle.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Anaszarqawi/Robix-Timer.git"
+    },
+    "author": "RTS-Coders",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Anaszarqawi/Robix-Timer/issues"
+    },
+    "homepage": "https://github.com/Anaszarqawi/Robix-Timer#readme",
+    "dependencies": {
+        "browserify": "^17.0.0",
+        "scrambow": "^1.7.0"
+    }
+}

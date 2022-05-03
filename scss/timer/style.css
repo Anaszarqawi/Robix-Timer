@@ -16,7 +16,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 40px 450px;
+  margin: 40px 400px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -53,7 +53,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 100;
   word-spacing: -25px;
-  min-width: 600px;
+  min-width: 385px;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
