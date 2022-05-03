@@ -1,3 +1,5 @@
+var Scrambow = require('scrambow').Scrambow;
+
 let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
 let timer = $('.timer')
 let int = null;
@@ -21,7 +23,6 @@ $(document).on('keypress', asciCode => {
 });
 
 
-
 function displayTimer() {
     milliseconds += 1;
     if (milliseconds == 100) {
@@ -38,8 +39,16 @@ function displayTimer() {
     let m = minutes < 10 ? "0" + minutes : minutes;
     let s = seconds < 10 ? "0" + seconds : seconds;
     let ms = milliseconds < 10 ? "0" + milliseconds : milliseconds < 100 ? "" + milliseconds : milliseconds;
+    timer.css("minWidth", "385px");
+    if (m == 0) {
+        timer.text(`${s} . ${ms}`);
+    } else {
+        timer.text(`${m} : ${s} . ${ms}`);
+        timer.css("minWidth", "600px");
 
-    timer.text(`${m} : ${s} . ${ms}`);
+    }
 }
 
-// setInterval(displayTimer, 10);
+var threebythree = new Scrambow(); // Defaults to 3x3
+
+$(".scramble").text(threebythree.get()[0].scramble_string);
