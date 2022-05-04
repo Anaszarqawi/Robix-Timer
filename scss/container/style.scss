@@ -1,0 +1,64 @@
+// Vars
+$primaryColor:#121212;
+$white-1:#F8F8F8;
+$white-2:#F3F3F3;
+$white-3:#F1F1F1;
+$primaryFont:"Open Sans",
+sans-serif;
+// Code 
+* {
+    font-family: $primaryFont;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: $white-2;
+    overflow-x: hidden;
+}
+
+.container {
+    box-sizing: border-box;
+    display: flex;
+    margin: 40px 15%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    transition: ease 0.4s;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .scrambleContainer {
+        padding: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: ease 0.4s;
+        .scramble {
+            color: $primaryColor;
+            font-size: 40px;
+            font-family: $primaryFont;
+            font-weight: 100;
+            min-width: 600px;
+            transition: ease 0.4s;
+            text-align: center;
+            margin-right: 20px;
+        }
+        .refresh-icon {
+            fill: $primaryColor;
+            width: max-content;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+    }
+    .timer {
+        color: $primaryColor;
+        font-size: 150px;
+        padding: 50px;
+        font-weight: 100;
+        transition: all 0.2s;
+    }
+}

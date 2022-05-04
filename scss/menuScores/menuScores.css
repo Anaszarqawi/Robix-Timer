@@ -1,0 +1,117 @@
+.menuScores {
+  -webkit-transform: translateX(560px);
+          transform: translateX(560px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow-y: scroll;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  top: 0;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  z-index: 99999;
+  background-color: #F8F8F8;
+  -webkit-transition: ease 0.4s;
+  transition: ease 0.4s;
+}
+
+.menuScores .title {
+  color: #121212;
+  text-align: center;
+  margin: 10px auto;
+  font-size: 40px;
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+.menuScores .searchBar {
+  width: -webkit-fill-available;
+  margin: 0 5px;
+  padding: 5px 10px;
+  outline: none;
+  border: 1px #12121231 solid;
+  font-size: 20px;
+  border-radius: 7px;
+  background-color: #F8F8F8;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  margin-top: 20px;
+}
+
+.menuScores .searchBar:focus {
+  border: 1px #12121293 solid;
+}
+
+.menuScores .scores {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0;
+  margin: 10px 0;
+  width: 500px;
+  -webkit-transition: ease 0.4s;
+  transition: ease 0.4s;
+}
+
+.menuScores .scores .score {
+  font-size: 20px;
+  border: 1px #12121231 solid;
+  color: #121212;
+  padding: 15px 40px;
+  margin: 5px;
+  border-radius: 7px;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  background-color: #F8F8F8;
+}
+
+.menuScores .scores .score:hover {
+  background-color: #F1F1F1;
+}
+
+.openMenu {
+  -webkit-transform: none !important;
+          transform: none !important;
+}
+
+.openMenuContainer {
+  margin: 43px 600px 40px 40px;
+}
+/*# sourceMappingURL=menuScores.css.map */
