@@ -1,0 +1,90 @@
+// Vars
+$primaryColor:#121212;
+$primaryColor-dot5:#121212eb;
+$white-1:#F8F8F8;
+$white-2:#F3F3F3;
+$white-3:#F1F1F1;
+$white-7:#e9e9e9;
+$primaryFont:"Open Sans",
+sans-serif;
+// Code
+.menuScores {
+    transform: translateX(560px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: fit-content;
+    top: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    z-index: 99999;
+    background-color: $white-1;
+    transition: ease 0.4s;
+    .title {
+        color: $primaryColor;
+        text-align: center;
+        margin: 10px auto;
+        font-size: 40px;
+        padding: 10px;
+        text-transform: uppercase;
+    }
+    .searchBar {
+        width: -webkit-fill-available;
+        margin: 0 5px;
+        padding: 5px 10px;
+        outline: none;
+        border: 1px #12121231 solid;
+        font-size: 20px;
+        border-radius: 7px;
+        background-color: $white-1;
+        transition: all 0.2s;
+        margin-top: 20px;
+        &:focus {
+            border: 1px #12121293 solid;
+        }
+    }
+    .scores {
+        width: fit-content;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0;
+        margin: 10px 0;
+        width: 500px;
+        transition: ease 0.4s;
+        .score {
+            font-size: 20px;
+            border: 1px #12121231 solid;
+            color: $primaryColor;
+            padding: 15px 40px;
+            margin: 5px;
+            border-radius: 7px;
+            align-items: stretch;
+            flex: 1;
+            // box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            // box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.068) 0px 0px 0px 1px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            background-color: $white-1;
+            &:hover {
+                background-color: $white-3;
+            }
+        }
+    }
+}
+
+.openMenu {
+    transform: none !important;
+}
+
+.openMenuContainer {
+    margin: 43px 600px 40px 40px;
+}

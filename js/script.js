@@ -1,12 +1,18 @@
 var Scrambow = require('scrambow').Scrambow;
+var [ms, sec, min, hr] = [0, 0, 0, 0];
 
-let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
-let timer = $('.timer')
+let milliseconds = 0;
+let timerElement = $('.timer')
 
-let int = null;
+var timerInterval = null
 var run = false
 var scores = [];
 var scoreID = 0;
+let isPressed = false;
+var deg = 180
+var scramble = ""
+
+
 
 var threebythree = new Scrambow(); // Defaults to 3x3
 
@@ -15,34 +21,84 @@ $(document).ready(function() {
         localStorage.setItem("scores", []);
         localStorage.setItem("scoreID", 0);
         scoreID = +localStorage.getItem("scoreID")
-    } else
+    } else {
         scoreID = +localStorage.getItem("scoreID")
+        scores = JSON.parse(localStorage.getItem("scores"))
 
-    scores = JSON.parse(localStorage.getItem("scores"))
+    }
+
     generateScramble()
     printScores(scores)
 
 });
 
-$(document).on('keypress', asciCode => {
+// $(document).on('keypress', asciCode => {
+//     asciCode.preventDefault();
+//     if (asciCode.which == 32) {
+//         if (run == false) {
+//             run = true;
+//             console.log(run);
+//             timerElement.css("transform", "scale(1.1)");
+//             timerInterval = setInterval(timer, 10)
+//             milliseconds = 0
+//                 // [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+//             totalSec = 0
+//                 // int = setInterval(displayTimer, 10);
+//         } else {
+//             run = false
+//             console.log(run);
+
+//             timerElement.css("transform", "scale(1.0)");
+//             clearInterval(timerInterval);
+
+//             generateScramble()
+//             addToStorage()
+//             printScores(scores)
+//         }
+//     }
+// });
+
+$(document).on('keydown', asciCode => {
+
+    if (asciCode.which == 32) {
+        asciCode.preventDefault();
+        if (run == false) {
+            if (!isPressed) {
+                isPressed = true;
+                timerElement.css("opacity", "0.5");
+
+            }
+        }
+    }
+
+});
+
+
+$(document).on('keyup', asciCode => {
     asciCode.preventDefault();
     if (asciCode.which == 32) {
         if (run == false) {
+            isPressed = false;
             run = true;
-            timer.css("transform", "scale(1.1)");
-            [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
-            int = setInterval(displayTimer, 10);
+            $(".refresh-icon").css("display", "none");
+            timerInterval = setInterval(timer, 10)
+            milliseconds = 0
+            timerElement.css("transform", "scale(1.1)");
+            timerElement.css("opacity", "1");
+
+
         } else {
             run = false
-            timer.css("transform", "scale(1.0)");
-            clearInterval(int);
-
-            generateScramble()
+            timerElement.css("transform", "scale(1.0)");
+            clearInterval(timerInterval);
+            $(".refresh-icon").css("display", "block");
             addToStorage()
+            generateScramble()
             printScores(scores)
         }
+
     }
-});
+})
 
 const printScores = (scores) => {
     var scoresElement = $(".scores")
@@ -50,49 +106,75 @@ const printScores = (scores) => {
 
     var reversedScores = scores.slice().reverse();
     reversedScores.forEach(scoreID => {
-        scoresElement.append(`<il class='score'>${scoreID.time}</il>`)
+        scoresElement.append(`<il class='score'>${+msToHms(scoreID.time) || msToHms(scoreID.time)}</il>`)
     });
 }
 
 const generateScramble = () => {
-    $(".scramble").text(threebythree.get()[0].scramble_string);
+    scramble = threebythree.get()[0].scramble_string
+    $(".scramble").text(scramble);
 }
 
 const addToStorage = () => {
-    var timeValue = +$('.timer').text().replace(/\s/g, '')
-    var scramble = $('.scramble').text()
     scoreID = localStorage.getItem("scoreID")
 
     scores[scoreID++] = ({
-        "time": timeValue,
+        "time": milliseconds,
         "scramble": scramble,
     })
     localStorage.setItem("scoreID", scoreID);
     localStorage.setItem("scores", JSON.stringify(scores));
 }
 
-function displayTimer() {
-    milliseconds += 1;
-    if (milliseconds == 100) {
-        milliseconds = 0;
-        seconds++;
-        if (seconds == 60) {
-            seconds = 0;
-            minutes++;
-            if (minutes == 60) {
-                minutes = 0;
-            }
-        }
-    }
-    let m = minutes < 10 ? "0" + minutes : minutes;
-    let s = seconds < 10 ? "0" + seconds : seconds;
-    let ms = milliseconds < 10 ? "0" + milliseconds : milliseconds < 100 ? "" + milliseconds : milliseconds;
-    timer.css("minWidth", "385px");
-    if (m == 0) {
-        timer.text(`${s} . ${ms}`);
-    } else {
-        timer.text(`${m} : ${s} . ${ms}`);
-        timer.css("minWidth", "600px");
+const timer = () => {
+    milliseconds += 1
+    timerElement.text(msToHms(milliseconds))
+        // timerElement.text((milliseconds))
+}
 
+const msToHms = ms => {
+    let [sec, min, hr] = [0, 0, 0, 0]
+    hr = ms / 360000 | 0;
+    ms %= 360000
+    min = ms / 6000 | 0
+    ms %= 6000
+    sec = ms / 100 | 0
+    ms %= 100
+
+    let s = sec < 10 ? "0" + sec : sec;
+    let mi = ms < 10 ? "0" + ms : ms;
+
+    if (hr == 0 && min == 0) {
+        return (`${s}.${mi}`)
+    } else if (hr == 0) {
+        return (`${min}:${s}.${mi}`)
+    } else {
+        return (`${hr}:${min}:${s}.${mi}`)
     }
 }
+
+$(".refresh-icon").click(function(e) {
+    $(this).css("transform", `rotate(${deg}deg)`);
+    deg += 180
+    generateScramble()
+});
+
+$(".scoresMenu").click(function(e) {
+    $(".menuScores").toggleClass("openMenu");
+    $(".container").toggleClass("openMenuContainer")
+});
+
+// $(window).click(function(element) {
+//     if (!$(element.target).hasClass("menuScores")) {
+//         if ($(".menuScores").hasClass("openMenu") && !$(element.target).hasClass("scoresMenu")) {
+//             $(".menuScores").toggleClass("openMenu");
+//         }
+//         console.log(element);
+//     }
+// });
+
+// $('.scoresMenu').click(function(event) {
+//     event.stopPropagation();
+//     $(".menuScores").toggleClass("openMenu");
+
+// });
