@@ -26,13 +26,13 @@ body {
     align-items: center;
     flex-direction: column;
     height: 100%;
-    transition: ease 0.4s;
+    transition: ease-in-out 0.4s;
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     .scrambleContainer {
-        padding: 50px;
+        padding: 50px 0;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -45,13 +45,17 @@ body {
             min-width: 600px;
             transition: ease 0.4s;
             text-align: center;
-            margin-right: 20px;
+            // margin: 0 20px;
+            padding: 5px 10px;
+            transition: ease-in-out 0.2s;
         }
-        .refresh-icon {
+        .refresh-icon,
+        .edit-icon {
             fill: $primaryColor;
             width: max-content;
             cursor: pointer;
             transition: all 0.4s;
+            padding: 20px;
         }
     }
     .timer {

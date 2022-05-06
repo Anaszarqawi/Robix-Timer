@@ -14,17 +14,10 @@
 <body>
     <div class="container">
         <?php include './php/nav.php' ?>
-        <div class="scrambleContainer">
-            <div class="scramble">D2 B2 U2 B2 L' U2 L R2 B2 L R U' F' U' L' U' B2 D L2</div>
-            <?php include './assets/svg/refresh-icon.svg' ?>
-        </div>
+        <?php include './php/scramble.php' ?>
         <div class="timer">00.00</div>
     </div>
-    <div class="menuScores">
-        <span class="title">Scores</span>
-        <input type="text" onkeyup="myFunction()" placeholder="Search comments" class="searchBar">
-        <ul class="scores"></ul>
-    </div>
+    <?php include './php/menuScores.php' ?>
     <script>
         <?php include './js/packages/jquery-3.6.0.min.js' ?>
         <?php include './js/bundle.js' ?>
