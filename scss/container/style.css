@@ -29,8 +29,8 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
-  -webkit-transition: ease 0.4s;
-  transition: ease 0.4s;
+  -webkit-transition: ease-in-out 0.4s;
+  transition: ease-in-out 0.4s;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
@@ -38,7 +38,7 @@ body {
 }
 
 .container .scrambleContainer {
-  padding: 50px;
+  padding: 50px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -62,10 +62,13 @@ body {
   -webkit-transition: ease 0.4s;
   transition: ease 0.4s;
   text-align: center;
-  margin-right: 20px;
+  padding: 5px 10px;
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
 }
 
-.container .scrambleContainer .refresh-icon {
+.container .scrambleContainer .refresh-icon,
+.container .scrambleContainer .edit-icon {
   fill: #121212;
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -73,6 +76,7 @@ body {
   cursor: pointer;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
+  padding: 20px;
 }
 
 .container .timer {

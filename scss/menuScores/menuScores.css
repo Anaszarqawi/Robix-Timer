@@ -1,6 +1,10 @@
+:root {
+  --white-1: #F8F8F8;
+}
+
 .menuScores {
-  -webkit-transform: translateX(560px);
-          transform: translateX(560px);
+  -webkit-transform: translateX(607px);
+          transform: translateX(607px);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -25,9 +29,9 @@
   -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
           box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   z-index: 99999;
-  background-color: #F8F8F8;
-  -webkit-transition: ease 0.4s;
-  transition: ease 0.4s;
+  background-color: var(--white-1);
+  -webkit-transition: ease-in-out 0.4s;
+  transition: ease-in-out 0.4s;
 }
 
 .menuScores .title {
@@ -39,7 +43,23 @@
   text-transform: uppercase;
 }
 
-.menuScores .searchBar {
+.menuScores .boxesContainer {
+  width: 550px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.menuScores .boxesContainer .searchBar {
   width: -webkit-fill-available;
   margin: 0 5px;
   padding: 5px 10px;
@@ -47,17 +67,121 @@
   border: 1px #12121231 solid;
   font-size: 20px;
   border-radius: 7px;
-  background-color: #F8F8F8;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-  margin-top: 20px;
+  background-color: var(--white-1);
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
 }
 
-.menuScores .searchBar:focus {
+.menuScores .boxesContainer .searchBar:focus {
   border: 1px #12121293 solid;
 }
 
-.menuScores .scores {
+.menuScores .boxesContainer .scoreViewer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  width: -webkit-fill-available;
+  margin: 10px 5px 5px;
+  border: 1px #12121231 solid;
+  font-size: 20px;
+  border-radius: 7px;
+  background-color: var(--white-1);
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.menuScores .boxesContainer .scoreViewer .data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: stretch;
+      align-content: stretch;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.menuScores .boxesContainer .scoreViewer .data .time-data,
+.menuScores .boxesContainer .scoreViewer .data .scramble-data {
+  color: #121212;
+  padding: 10px;
+  width: 100%;
+  -ms-flex-line-pack: stretch;
+      align-content: stretch;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: left;
+}
+
+.menuScores .boxesContainer .scoreViewer .data .time-data {
+  border-right: 1px #12121231 solid;
+  font-size: 40px;
+  font-weight: 100;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+
+.menuScores .boxesContainer .scoreViewer .back,
+.menuScores .boxesContainer .scoreViewer .next {
+  font-size: 20px;
+  font-weight: 100;
+  color: #121212;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  background-color: #F1F1F1;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  max-width: auto;
+}
+
+.menuScores .boxesContainer .scoreViewer .back:hover,
+.menuScores .boxesContainer .scoreViewer .next:hover {
+  background-color: #e9e9e9;
+}
+
+.menuScores .boxesContainer .scoreViewer .back {
+  border-right: 1px #12121231 solid;
+  border-radius: 7px 0 0 7px;
+}
+
+.menuScores .boxesContainer .scoreViewer .next {
+  border-left: 1px #12121231 solid;
+  border-radius: 0 7px 7px 0;
+}
+
+.menuScores .boxesContainer .scores {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -72,17 +196,17 @@
           flex-direction: row;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
   padding: 0;
-  margin: 10px 0;
-  width: 500px;
-  -webkit-transition: ease 0.4s;
-  transition: ease 0.4s;
+  margin: 0;
+  width: fit-content;
+  -webkit-transition: ease-in-out 0.4s;
+  transition: ease-in-out 0.4s;
 }
 
-.menuScores .scores .score {
+.menuScores .boxesContainer .scores .score {
   font-size: 20px;
   border: 1px #12121231 solid;
   color: #121212;
@@ -92,17 +216,18 @@
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
+  max-width: 45px;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   cursor: pointer;
   text-align: center;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-  background-color: #F8F8F8;
+  -webkit-transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.2s;
+  background-color: var(--white-1);
 }
 
-.menuScores .scores .score:hover {
+.menuScores .boxesContainer .scores .score:hover {
   background-color: #F1F1F1;
 }
 
@@ -112,6 +237,6 @@
 }
 
 .openMenuContainer {
-  margin: 43px 600px 40px 40px;
+  margin: 40px 697px 40px 90px;
 }
 /*# sourceMappingURL=menuScores.css.map */
