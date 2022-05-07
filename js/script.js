@@ -7,59 +7,44 @@ let timerElement = $('.timer')
 var timerInterval = null
 var run = false
 var scores = [];
-var scoreID = 0;
 let isPressed = false;
 var deg = 180
 var scramble = ""
 var viewIndex = 0
 const timeView = $('.scoreViewer .time-data');
 const scrambleView = $('.scoreViewer .scramble-data');
-
-
+var currentSession = 1
+var sessions = [1, 2, 3, 4, 5]
 
 var threebythree = new Scrambow(); // Defaults to 3x3
 
 $(document).ready(function() {
-    if (localStorage.getItem("scoreID") == null || localStorage.getItem("scores") == null) {
-        localStorage.setItem("scores", []);
-        localStorage.setItem("scoreID", 0);
-        scoreID = +localStorage.getItem("scoreID")
+    if (localStorage.getItem('newPlayer') == null) {
+        localStorage.setItem('currentSession', 1);
+        localStorage.setItem('sessions', JSON.stringify(sessions));
+        localStorage.setItem(`scores1`, []);
+        localStorage.setItem('newPlayer', false);
+        loadSessions();
+        generateScramble();
     } else {
-        scoreID = +localStorage.getItem("scoreID")
-        scores = JSON.parse(localStorage.getItem("scores"))
+        currentSession = localStorage.getItem(`currentSession`);
+        try {
+            scores = JSON.parse(localStorage.getItem(`scores${currentSession}`));
+        } catch (error) {
+            scores = [];
+        }
+        sessions = JSON.parse(localStorage.getItem('sessions'));
+        loadSessions();
+        generateScramble();
+
+        $('.sessions').val(`${currentSession}`);
+        console.log(currentSession);
+        printScores();
+        printInViewer();
+        calcTimerMisc()
     }
-
-    generateScramble();
-    printScores(scores);
-    printInViewer(scores);
-
 });
 
-// $(document).on('keypress', asciCode => {
-//     asciCode.preventDefault();
-//     if (asciCode.which == 32) {
-//         if (run == false) {
-//             run = true;
-//             console.log(run);
-//             timerElement.css("transform", "scale(1.1)");
-//             timerInterval = setInterval(timer, 10)
-//             milliseconds = 0
-//                 // [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
-//             totalSec = 0
-//                 // int = setInterval(displayTimer, 10);
-//         } else {
-//             run = false
-//             console.log(run);
-
-//             timerElement.css("transform", "scale(1.0)");
-//             clearInterval(timerInterval);
-
-//             generateScramble()
-//             addToStorage()
-//             printScores(scores)
-//         }
-//     }
-// });
 
 $(document).on('keydown', asciCode => {
 
@@ -100,14 +85,25 @@ $(document).on('keyup', asciCode => {
             $('.edit-icon').css('cursor', 'pointer');
             addToStorage()
             generateScramble()
-            printScores(scores)
-            printInViewer(scores)
+            printScores()
+            printInViewer()
+            calcTimerMisc()
         }
-
     }
 })
 
-const printScores = (scores) => {
+
+// Start Menu Functions
+
+const loadSessions = () => {
+    sessions.forEach(value => {
+        $('.sessions').append(`<option class="session" value="${value}">${value}</option>`);
+    });
+    $('.sessions').append(`<option class="session" value="new">New Session</option>`);
+
+}
+
+const printScores = () => {
     var scoresElement = $(".scores")
     scoresElement.empty();
 
@@ -117,48 +113,141 @@ const printScores = (scores) => {
     });
 }
 
+$('.scoresMenu').click(function(e) {
+    $('.menuScores').toggleClass('openMenu');
+    $('.container').toggleClass('openMenuContainer');
+});
+
+const printInViewer = () => {
+    // console.table(scores);
+    var reversedScores = scores.slice().reverse();
+    if (reversedScores.length == 0) {
+        $('.scoreViewer').css('display', 'none');
+    } else {
+        $('.scoreViewer').css('display', 'flex');
+        timeView.text(+msToHms(reversedScores[0].time));
+        scrambleView.text(reversedScores[0].scramble);
+        $($('.score')[0]).css('background-color', '#e9e9e9');
+        viewIndex = 0;
+    }
+};
+
+$('.next').click(function(e) {
+    var reversedScores = scores.slice().reverse();
+    if (viewIndex < reversedScores.length - 1) {
+        $($('.score')[viewIndex]).css('background-color', '#F8F8F8');
+        viewIndex++;
+        // console.log(viewIndex);
+        timeView.text(+msToHms(reversedScores[viewIndex].time));
+        scrambleView.text(reversedScores[viewIndex].scramble);
+        $($('.score')[viewIndex]).css('background-color', '#e9e9e9');
+    }
+});
+
+$('.back').click(function(e) {
+    var reversedScores = scores.slice().reverse();
+    if (viewIndex > 0) {
+        // console.log(viewIndex + 1);
+        $($('.score')[viewIndex]).css('background-color', '#F8F8F8');
+        viewIndex--;
+        timeView.text(+msToHms(reversedScores[viewIndex].time));
+        scrambleView.text(reversedScores[viewIndex].scramble);
+        $($('.score')[viewIndex]).css('background-color', '#e9e9e9');
+    }
+});
+
+$(document).on('click', '.score', (scoreElement) => {
+    let index = $($('.score')).index(scoreElement.target);
+    $('.score').css('background-color', '#F8F8F8');
+    $($('.score')[index]).css('background-color', '#e9e9e9');
+    // console.log(index);
+    var reversedScores = scores.slice().reverse();
+    timeView.text(+msToHms(reversedScores[index].time));
+    scrambleView.text(reversedScores[index].scramble);
+    viewIndex = index;
+});
+
+$('.sessions').on('input', (element) => {
+    currentSession = $('.sessions').val();
+
+    if (currentSession === 'new') {
+        $('.createSession').css('display', 'flex')
+        $('.scoreViewer').css('display', 'none');
+        scores = [];
+        printScores();
+        return
+    } else {
+        $('.createSession').css('display', 'none');
+        localStorage.setItem('currentSession', currentSession);
+        try {
+            scores = JSON.parse(localStorage.getItem(`scores${currentSession}`));
+        } catch (error) {
+            scores = []
+        }
+        if (scores == null) {
+            scores = [];
+            localStorage.setItem(`scores${currentSession}`, []);
+        }
+        printScores();
+        calcTimerMisc();
+        printInViewer();
+    }
+
+});
+
+$('.add').click(() => {
+    $('.createSession').css('display', 'none');
+    let name = $('.createSession .name').val()
+    $('.session').last().text(name)
+    $('.session').last().val(name)
+    $('.sessions').append('<option class="session" value="new">New Session</option>')
+
+    sessions.push(name)
+    currentSession = name
+    localStorage.setItem('currentSession', currentSession);
+    localStorage.setItem('sessions', JSON.stringify(sessions));
+    localStorage.setItem(`scores${currentSession}`, []);
+    scores = []
+
+    printScores();
+    printInViewer();
+});
+
+// End Menu Functions
+
+// Start Timer Functions
+
+const timer = () => {
+    milliseconds += 1;
+    timerElement.text(msToHms(milliseconds));
+    // timerElement.text((milliseconds))
+};
+
+const msToHms = (ms) => {
+    let [sec, min, hr] = [0, 0, 0, 0];
+    hr = (ms / 360000) | 0;
+    ms %= 360000;
+    min = (ms / 6000) | 0;
+    ms %= 6000;
+    sec = (ms / 100) | 0;
+    ms %= 100;
+
+    let s = sec < 10 ? '0' + sec : sec;
+    let mi = ms < 10 ? '0' + ms : ms;
+
+    if (hr == 0 && min == 0) {
+        return `${s}.${mi}`;
+    } else if (hr == 0) {
+        return `${min}:${s}.${mi}`;
+    } else {
+        return `${hr}:${min}:${s}.${mi}`;
+    }
+};
+
 const generateScramble = () => {
     scramble = threebythree.get()[0].scramble_string
     $(".scramble").text(scramble);
 
-}
-
-const addToStorage = () => {
-    scoreID = localStorage.getItem("scoreID")
-
-    scores[scoreID++] = ({
-        "time": milliseconds,
-        "scramble": $('.scramble').text(),
-    })
-    localStorage.setItem("scoreID", scoreID);
-    localStorage.setItem("scores", JSON.stringify(scores));
-}
-
-const timer = () => {
-    milliseconds += 1
-    timerElement.text(msToHms(milliseconds))
-        // timerElement.text((milliseconds))
-}
-
-const msToHms = ms => {
-    let [sec, min, hr] = [0, 0, 0, 0]
-    hr = ms / 360000 | 0;
-    ms %= 360000
-    min = ms / 6000 | 0
-    ms %= 6000
-    sec = ms / 100 | 0
-    ms %= 100
-
-    let s = sec < 10 ? "0" + sec : sec;
-    let mi = ms < 10 ? "0" + ms : ms;
-
-    if (hr == 0 && min == 0) {
-        return (`${s}.${mi}`)
-    } else if (hr == 0) {
-        return (`${min}:${s}.${mi}`)
-    } else {
-        return (`${hr}:${min}:${s}.${mi}`)
-    }
 }
 
 $(".refresh-icon").click(function(e) {
@@ -175,53 +264,39 @@ $('.edit-icon').click(function(e) {
     }
 });
 
-$(".scoresMenu").click(function(e) {
-    $(".menuScores").toggleClass("openMenu");
-    $(".container").toggleClass("openMenuContainer")
-});
-
-
-const printInViewer = (scores) => {
+const calcTimerMisc = () => {
+    let [sum, mean, best, avg5, avg10] = [0, 0, 0, 0, 0]
+    let count = scores.length;
+    let timerMisc = $('.timerMisc .text');
     var reversedScores = scores.slice().reverse();
-    timeView.text(+msToHms(reversedScores[0].time));
-    scrambleView.text(reversedScores[0].scramble);
-    $($('.score')[0]).css('background-color', '#e9e9e9');
-    viewIndex = 0
-
+    var times = []
+    for (let i = 0; i < reversedScores.length; i++) {
+        sum += +reversedScores[i].time;
+        if (i == 4) {
+            avg5 = (sum / 5) | 0;
+        }
+        if (i == 9) {
+            avg10 = (sum / 10) | 0;
+        }
+        times.push(+reversedScores[i].time);
+    }
+    mean = sum / count | 0
+    $(timerMisc[0]).text(`Mean: ${+msToHms(mean)}`)
+    $(timerMisc[1]).text(`Best: ${+msToHms(Math.min(...times))}`)
+    $(timerMisc[2]).text(`Count: ${count}`)
+    $(timerMisc[3]).text(`Avg5: ${+msToHms(avg5)}`)
+    $(timerMisc[4]).text(`Avg10: ${+msToHms(avg10)}`)
 };
+// End Timer Functions
 
-$(".next").click(function(e) {
-    var reversedScores = scores.slice().reverse();
-    if (viewIndex < reversedScores.length - 1) {
-        $($('.score')[viewIndex]).css('background-color', '#F8F8F8');
-        viewIndex++;
-        console.log(viewIndex);
-        timeView.text(+msToHms(reversedScores[viewIndex].time));
-        scrambleView.text(reversedScores[viewIndex].scramble);
-        $($('.score')[viewIndex]).css('background-color', '#e9e9e9');
+// local Storage Functions
 
-    }
-});
-
-$('.back').click(function(e) {
-    var reversedScores = scores.slice().reverse();
-    if (viewIndex > 0) {
-        console.log(viewIndex + 1);
-        $($('.score')[viewIndex]).css('background-color', '#F8F8F8');
-        viewIndex--
-        timeView.text(+msToHms(reversedScores[viewIndex].time));
-        scrambleView.text(reversedScores[viewIndex].scramble);
-        $($('.score')[viewIndex]).css('background-color', '#e9e9e9');
-    }
-});
-
-$(document).on("click", ".score", (scoreElement) => {
-    let index = $($('.score')).index(scoreElement.target);
-    $('.score').css('background-color', '#F8F8F8');
-    $($('.score')[index]).css('background-color', '#e9e9e9');
-    console.log(index);
-    var reversedScores = scores.slice().reverse();
-    timeView.text(+msToHms(reversedScores[index].time));
-    scrambleView.text(reversedScores[index].scramble);
-    viewIndex = index
-})
+const addToStorage = () => {
+    scores.push({
+        time: milliseconds,
+        scramble: $('.scramble').text(),
+    });
+    // console.log(currentSession);
+    localStorage.setItem(`scores${currentSession}`, JSON.stringify(scores));
+    // console.table(scores);
+};

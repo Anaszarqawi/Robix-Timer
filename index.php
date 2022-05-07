@@ -16,6 +16,7 @@
         <?php include './php/nav.php' ?>
         <?php include './php/scramble.php' ?>
         <div class="timer">00.00</div>
+        <?php include './php/timerMisc.php' ?>
     </div>
     <?php include './php/menuScores.php' ?>
     <script>

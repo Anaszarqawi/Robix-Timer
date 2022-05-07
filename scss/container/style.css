@@ -61,10 +61,16 @@ body {
   min-width: 600px;
   -webkit-transition: ease 0.4s;
   transition: ease 0.4s;
+  background-color: #F3F3F3;
   text-align: center;
-  padding: 5px 10px;
-  -webkit-transition: ease-in-out 0.2s;
-  transition: ease-in-out 0.2s;
+  outline: none;
+  border-radius: 7px;
+  padding: 0 10px;
+}
+
+.container .scrambleContainer .scramble:focus {
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .container .scrambleContainer .refresh-icon,
@@ -86,5 +92,11 @@ body {
   font-weight: 100;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
+}
+
+.container .timerMisc {
+  color: #121212;
+  font-size: 30px;
+  font-weight: 100;
 }
 /*# sourceMappingURL=style.css.map */
