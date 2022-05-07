@@ -98,5 +98,14 @@ body {
   color: #121212;
   font-size: 30px;
   font-weight: 100;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 5px;
+  padding: 50px 0;
 }
 /*# sourceMappingURL=style.css.map */
