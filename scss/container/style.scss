@@ -44,10 +44,16 @@ body {
             font-weight: 100;
             min-width: 600px;
             transition: ease 0.4s;
+            background-color: $white-2;
             text-align: center;
+            outline: none;
+            border-radius: 7px;
             // margin: 0 20px;
-            padding: 5px 10px;
-            transition: ease-in-out 0.2s;
+            padding: 0 10px;
+            // transition: ease-in-out 0.2s;
+            &:focus {
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            }
         }
         .refresh-icon,
         .edit-icon {
@@ -64,5 +70,10 @@ body {
         padding: 50px;
         font-weight: 100;
         transition: all 0.2s;
+    }
+    .timerMisc {
+        color: $primaryColor;
+        font-size: 30px;
+        font-weight: 100;
     }
 }

@@ -37,7 +37,7 @@ sans-serif;
         text-transform: uppercase;
     }
     .boxesContainer {
-        width: 550px;
+        width: 500px;
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
@@ -57,13 +57,55 @@ sans-serif;
                 border: 1px #12121293 solid;
             }
         }
+        .sessions {
+            font-size: 20px;
+            border: 1px #12121231 solid;
+            color: $primaryColor;
+            background-color: var(--white-1);
+            outline: none;
+            border-radius: 7px;
+            margin: 5px;
+            padding: 5px;
+        }
+        .createSession {
+            display: none;
+            flex-direction: row;
+            margin: 5px;
+            .name {
+                width: -webkit-fill-available;
+                padding: 5px 10px;
+                outline: none;
+                border: 1px #12121231 solid;
+                font-size: 20px;
+                border-radius: 7px;
+                background-color: var(--white-1);
+                transition: ease-in-out 0.2s;
+                // margin-top: 20px;
+                &:focus {
+                    border: 1px #12121293 solid;
+                }
+            }
+            .add {
+                padding: 5px 10px;
+                outline: none;
+                border: 1px #12121231 solid;
+                font-size: 20px;
+                border-radius: 7px;
+                margin-left: 5px;
+                cursor: pointer;
+                transition: ease-in-out 0.2s;
+                &:hover {
+                    background-color: $white-7;
+                }
+            }
+        }
         .scoreViewer {
-            display: flex;
+            display: none;
             flex-direction: row;
             align-items: center;
             align-items: stretch;
             width: -webkit-fill-available;
-            margin: 10px 5px 5px;
+            margin: 5px 5px;
             // padding: 10px;
             border: 1px #12121231 solid;
             font-size: 20px;
@@ -138,11 +180,11 @@ sans-serif;
                 font-size: 20px;
                 border: 1px #12121231 solid;
                 color: $primaryColor;
-                padding: 15px 40px;
+                padding: 15px 30px;
                 margin: 5px;
                 border-radius: 7px;
                 align-items: stretch;
-                max-width: 45px;
+                max-width: 53px;
                 flex: 1;
                 // box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
                 // box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.068) 0px 0px 0px 1px;
