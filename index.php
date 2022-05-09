@@ -21,6 +21,7 @@
                 <div class="timer">00.00</div>
                 <?php include './php/timerMisc.php' ?>
             </div>
+            <?php include './php/bottom.php' ?>
         </div>
     </div>
     <?php include './php/menuScores.php' ?>
