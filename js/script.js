@@ -14,7 +14,7 @@ var viewIndex = 0
 const timeView = $('.scoreViewer .time-data');
 const scrambleView = $('.scoreViewer .scramble-data');
 var currentSession = 1
-var sessions = [1, 2, 3, 4, 5]
+var sessions = ['1', '2', '3', '4', '5']
 
 var threebythree = new Scrambow(); // Defaults to 3x3
 
@@ -37,7 +37,6 @@ $(document).ready(function() {
         loadSessions();
         generateScramble();
 
-        $('.sessions').val(`${currentSession}`);
         console.log(currentSession);
         printScores();
         printInViewer();
@@ -96,11 +95,14 @@ $(document).on('keyup', asciCode => {
 // Start Menu Functions
 
 const loadSessions = () => {
+    let sessionSelector = $('.sessionsContainer .sessions');
+    sessionSelector.empty()
     sessions.forEach(value => {
-        $('.sessions').append(`<option class="session" value="${value}">${value}</option>`);
+        $(sessionSelector).append(
+            `<option class="session" value="${value}">${value}</option>`
+        );
     });
-    $('.sessions').append(`<option class="session" value="new">New Session</option>`);
-
+    $('.sessions').val(`${currentSession}`);
 }
 
 const printScores = () => {
@@ -127,7 +129,7 @@ const printInViewer = () => {
         $('.scoreViewer').css('display', 'flex');
         timeView.text(+msToHms(reversedScores[0].time));
         scrambleView.text(reversedScores[0].scramble);
-        $($('.score')[0]).css('background-color', '#e9e9e9');
+        $($('.score')[0]).addClass('highlight');
         viewIndex = 0;
     }
 };
@@ -135,31 +137,32 @@ const printInViewer = () => {
 $('.next').click(function(e) {
     var reversedScores = scores.slice().reverse();
     if (viewIndex < reversedScores.length - 1) {
-        $($('.score')[viewIndex]).css('background-color', '#F8F8F8');
+        $('.score').removeClass('highlight');
         viewIndex++;
         // console.log(viewIndex);
         timeView.text(+msToHms(reversedScores[viewIndex].time));
         scrambleView.text(reversedScores[viewIndex].scramble);
-        $($('.score')[viewIndex]).css('background-color', '#e9e9e9');
+        $($('.score')[viewIndex]).addClass('highlight');
+
     }
 });
 
 $('.back').click(function(e) {
     var reversedScores = scores.slice().reverse();
     if (viewIndex > 0) {
-        // console.log(viewIndex + 1);
-        $($('.score')[viewIndex]).css('background-color', '#F8F8F8');
+        $('.score').removeClass('highlight');
         viewIndex--;
         timeView.text(+msToHms(reversedScores[viewIndex].time));
         scrambleView.text(reversedScores[viewIndex].scramble);
-        $($('.score')[viewIndex]).css('background-color', '#e9e9e9');
+        $($('.score')[viewIndex]).addClass('highlight');
+
     }
 });
 
 $(document).on('click', '.score', (scoreElement) => {
     let index = $($('.score')).index(scoreElement.target);
-    $('.score').css('background-color', '#F8F8F8');
-    $($('.score')[index]).css('background-color', '#e9e9e9');
+    $('.score').removeClass('highlight');
+    $($('.score')[index]).addClass('highlight');
     // console.log(index);
     var reversedScores = scores.slice().reverse();
     timeView.text(+msToHms(reversedScores[index].time));
@@ -169,39 +172,32 @@ $(document).on('click', '.score', (scoreElement) => {
 
 $('.sessions').on('input', (element) => {
     currentSession = $('.sessions').val();
-
-    if (currentSession === 'new') {
-        $('.createSession').css('display', 'flex')
-        $('.scoreViewer').css('display', 'none');
-        scores = [];
-        printScores();
-        return
-    } else {
-        $('.createSession').css('display', 'none');
-        localStorage.setItem('currentSession', currentSession);
-        try {
-            scores = JSON.parse(localStorage.getItem(`scores${currentSession}`));
-        } catch (error) {
-            scores = []
-        }
-        if (scores == null) {
-            scores = [];
-            localStorage.setItem(`scores${currentSession}`, []);
-        }
-        printScores();
-        calcTimerMisc();
-        printInViewer();
+    console.log(currentSession);
+    $('.createSession').css('display', 'none');
+    localStorage.setItem('currentSession', currentSession);
+    try {
+        scores = JSON.parse(localStorage.getItem(`scores${currentSession}`));
+    } catch (error) {
+        scores = []
     }
+    if (scores == null) {
+        scores = [];
+        localStorage.setItem(`scores${currentSession}`, []);
+    }
+    printScores();
+    calcTimerMisc();
+    printInViewer();
 
 });
 
 $('.add').click(() => {
     $('.createSession').css('display', 'none');
-    let name = $('.createSession .name').val()
-    $('.session').last().text(name)
-    $('.session').last().val(name)
-    $('.sessions').append('<option class="session" value="new">New Session</option>')
-
+    let name = $('.createSession .name-input').val();
+    $('.createSession .name-input').val('');
+    $('.sessions').append(
+        `<option class="session" value="${name}">${name}</option>`
+    );
+    $('.sessions').val(name)
     sessions.push(name)
     currentSession = name
     localStorage.setItem('currentSession', currentSession);
@@ -209,8 +205,41 @@ $('.add').click(() => {
     localStorage.setItem(`scores${currentSession}`, []);
     scores = []
 
+    loadSessions()
     printScores();
     printInViewer();
+});
+
+$('.new').click(function(e) {
+    $('.createSession').css('display', 'flex');
+    $('.scoreViewer').css('display', 'none');
+    scores = [];
+    printScores();
+    return;
+});
+
+$('.remove').click(function(e) {
+    console.log("Remove");
+
+    localStorage.removeItem(`scores${currentSession}`);
+    $('.titleContainer .sessions').val($('.session').first().val());
+
+    var indexRemoved = sessions.indexOf(currentSession);
+    console.log(currentSession);
+    console.log(indexRemoved);
+    if (indexRemoved !== -1) {
+        sessions.splice(indexRemoved, 1);
+    }
+
+    currentSession = sessions[0]
+    localStorage.setItem('currentSession', sessions[0]);
+    localStorage.setItem('sessions', JSON.stringify(sessions));
+    console.log(sessions);
+    scores = []
+
+    loadSessions()
+    printScores()
+    printInViewer()
 });
 
 // End Menu Functions

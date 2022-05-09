@@ -1,10 +1,17 @@
     <div class="menuScores">
         <span class="title">Scores</span>
         <div class="boxesContainer">
-            <select class="sessions" name="sessions">
-            </select>
+            <div class="sessionsContainer">
+                <div class="titleContainer">Session:</div>
+                <select class="sessions" name="sessions"></select>
+            </div>
+            <div class="btns">
+                <div class="btn new">new</div>
+                <div class="btn clear">clear</div>
+                <div class="btn remove">remove</div>
+            </div>
             <div class="createSession">
-                <input type="text" class="name" placeholder="Session Name">
+                <input type="text" class="name-input" placeholder="Session Name">
                 <div class="add">Add</div>
             </div>
             <!-- <input type="text" onkeyup="myFunction()" placeholder="Search comments" class="searchBar"> -->

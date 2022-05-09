@@ -19,6 +19,7 @@ sans-serif;
         justify-content: flex-start;
         flex: 1;
         font-weight: 800;
+        color: var(--main-color);
     }
     .menu {
         display: flex;
@@ -26,12 +27,12 @@ sans-serif;
         .item {
             padding: 10px 20px;
             cursor: pointer;
-            color: $primaryColor-dot5;
+            color: var(--sub-text-color);
             border-radius: 5px;
             font-weight: 500;
             transition: all 0.2s;
             &:hover {
-                background-color: $white-7;
+                color: var(--text-color);
             }
         }
     }
