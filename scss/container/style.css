@@ -7,17 +7,44 @@ body {
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: #F3F3F3;
+  background-color: var(--bg-color);
+  margin: 0;
   overflow-x: hidden;
+  padding: 0;
 }
 
 .container {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 40px 15%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-transition: ease 0.4s;
+  transition: ease 0.4s;
+}
+
+.container .center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -ms-grid;
+  display: grid;
+  gap: 2rem;
+  grid-auto-flow: row;
+  -ms-grid-rows: auto 1fr auto;
+      grid-template-rows: auto 1fr auto;
+  max-width: 1230px;
+  padding: 2rem;
+  -webkit-transition: padding-top .125s;
+  transition: padding-top .125s;
+  width: 100%;
+  z-index: 999;
+}
+
+.container .middle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -28,16 +55,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 100%;
-  -webkit-transition: ease-in-out 0.4s;
-  transition: ease-in-out 0.4s;
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
-.container .scrambleContainer {
+.container .middle .scrambleContainer {
   padding: 50px 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -53,40 +73,43 @@ body {
   transition: ease 0.4s;
 }
 
-.container .scrambleContainer .scramble {
-  color: #121212;
+.container .middle .scrambleContainer .scramble {
+  color: var(--main-color);
   font-size: 40px;
   font-family: "Open Sans", sans-serif;
   font-weight: 100;
   min-width: 600px;
   -webkit-transition: ease 0.4s;
   transition: ease 0.4s;
-  background-color: #F3F3F3;
   text-align: center;
   outline: none;
   border-radius: 7px;
   padding: 0 10px;
 }
 
-.container .scrambleContainer .scramble:focus {
-  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+.container .middle .scrambleContainer .scramble:focus {
+  background-color: var(--sub-color);
 }
 
-.container .scrambleContainer .refresh-icon,
-.container .scrambleContainer .edit-icon {
-  fill: #121212;
+.container .middle .scrambleContainer .refresh-icon,
+.container .middle .scrambleContainer .edit-icon {
+  fill: var(--sub-text-color);
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   cursor: pointer;
-  -webkit-transition: all 0.4s;
-  transition: all 0.4s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
   padding: 20px;
 }
 
-.container .timer {
-  color: #121212;
+.container .middle .scrambleContainer .refresh-icon:hover,
+.container .middle .scrambleContainer .edit-icon:hover {
+  fill: var(--text-color);
+}
+
+.container .middle .timer {
+  color: var(--main-color);
   font-size: 150px;
   padding: 50px;
   font-weight: 100;
@@ -94,10 +117,7 @@ body {
   transition: all 0.2s;
 }
 
-.container .timerMisc {
-  color: #121212;
-  font-size: 30px;
-  font-weight: 100;
+.container .middle .timerMisc {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -105,7 +125,31 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  margin: 5px;
+  -ms-flex-line-pack: center;
+      align-content: center;
   padding: 50px 0;
+}
+
+.container .middle .timerMisc .text,
+.container .middle .timerMisc .separator {
+  color: var(--main-color);
+  font-size: 30px;
+  font-weight: 100;
+  margin: 5px;
+}
+
+.container .middle .timerMisc .separator {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0;
+  color: var(--sub-text-color);
+}
+
+.openMenuContainer {
+  margin-right: 568px;
 }
 /*# sourceMappingURL=style.css.map */

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robix Timer</title>
+    <link type="text/css" rel="stylesheet" id="currentTheme" href="./themes/pulse.css">
     <style>
         <?php include './scss/container/style.css' ?><?php include './scss/nav/style.css' ?><?php include './scss/menuScores/menuScores.css' ?>
     </style>
@@ -13,10 +14,14 @@
 
 <body>
     <div class="container">
-        <?php include './php/nav.php' ?>
-        <?php include './php/scramble.php' ?>
-        <div class="timer">00.00</div>
-        <?php include './php/timerMisc.php' ?>
+        <div class="center">
+            <?php include './php/nav.php' ?>
+            <div class="middle">
+                <?php include './php/scramble.php' ?>
+                <div class="timer">00.00</div>
+                <?php include './php/timerMisc.php' ?>
+            </div>
+        </div>
     </div>
     <?php include './php/menuScores.php' ?>
     <script>

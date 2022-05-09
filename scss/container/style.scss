@@ -1,5 +1,6 @@
 // Vars
 $primaryColor:#121212;
+$primaryColor-dot5:#121212eb;
 $white-1:#F8F8F8;
 $white-2:#F3F3F3;
 $white-3:#F1F1F1;
@@ -14,70 +15,97 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: $white-2;
+    background-color: var(--bg-color);
+    margin: 0;
+    // min-height: 100vh;
     overflow-x: hidden;
+    padding: 0;
 }
 
 .container {
-    box-sizing: border-box;
     display: flex;
-    margin: 40px 15%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-    transition: ease-in-out 0.4s;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    .scrambleContainer {
-        padding: 50px 0;
-        display: flex;
-        flex-direction: row;
+    justify-content: space-around;
+    transition: ease 0.4s;
+    .center {
         align-items: center;
-        transition: ease 0.4s;
-        .scramble {
-            color: $primaryColor;
-            font-size: 40px;
-            font-family: $primaryFont;
-            font-weight: 100;
-            min-width: 600px;
+        display: grid;
+        gap: 2rem;
+        grid-auto-flow: row;
+        grid-template-rows: auto 1fr auto;
+        max-width: 1230px;
+        // min-height: 100vh;
+        padding: 2rem;
+        transition: padding-top .125s;
+        width: 100%;
+        z-index: 999;
+    }
+    .middle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .scrambleContainer {
+            padding: 50px 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
             transition: ease 0.4s;
-            background-color: $white-2;
-            text-align: center;
-            outline: none;
-            border-radius: 7px;
-            // margin: 0 20px;
-            padding: 0 10px;
-            // transition: ease-in-out 0.2s;
-            &:focus {
-                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            .scramble {
+                color: var(--main-color);
+                font-size: 40px;
+                font-family: $primaryFont;
+                font-weight: 100;
+                min-width: 600px;
+                transition: ease 0.4s;
+                text-align: center;
+                outline: none;
+                border-radius: 7px;
+                padding: 0 10px;
+                &:focus {
+                    background-color: var(--sub-color);
+                }
+            }
+            .refresh-icon,
+            .edit-icon {
+                fill: var(--sub-text-color);
+                width: max-content;
+                cursor: pointer;
+                transition: all 0.2s;
+                padding: 20px;
+                &:hover {
+                    fill: var(--text-color);
+                }
             }
         }
-        .refresh-icon,
-        .edit-icon {
-            fill: $primaryColor;
-            width: max-content;
-            cursor: pointer;
-            transition: all 0.4s;
-            padding: 20px;
+        .timer {
+            color: var(--main-color);
+            font-size: 150px;
+            padding: 50px;
+            font-weight: 100;
+            transition: all 0.2s;
+        }
+        .timerMisc {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            padding: 50px 0;
+            .text,
+            .separator {
+                color: var(--main-color);
+                font-size: 30px;
+                font-weight: 100;
+                margin: 5px;
+            }
+            .separator {
+                display: flex;
+                align-items: center;
+                margin: 0;
+                color: var(--sub-text-color);
+            }
         }
     }
-    .timer {
-        color: $primaryColor;
-        font-size: 150px;
-        padding: 50px;
-        font-weight: 100;
-        transition: all 0.2s;
-    }
-    .timerMisc {
-        color: $primaryColor;
-        font-size: 30px;
-        font-weight: 100;
-        display: flex;
-        flex-direction: row;
-        margin: 5px;
-        padding: 50px 0;
-    }
+}
+
+.openMenuContainer {
+    margin-right: 568px;
 }
