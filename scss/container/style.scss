@@ -32,75 +32,100 @@ body {
         gap: 2rem;
         grid-auto-flow: row;
         grid-template-rows: auto 1fr auto;
-        max-width: 1230px;
+        max-width: 1240px;
         // min-height: 100vh;
         padding: 2rem;
         transition: padding-top .125s;
         width: 100%;
         z-index: 999;
-    }
-    .middle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        .scrambleContainer {
-            padding: 50px 0;
+        .middle {
             display: flex;
-            flex-direction: row;
+            justify-content: center;
             align-items: center;
-            transition: ease 0.4s;
-            .scramble {
-                color: var(--main-color);
-                font-size: 40px;
-                font-family: $primaryFont;
-                font-weight: 100;
-                min-width: 600px;
-                transition: ease 0.4s;
-                text-align: center;
-                outline: none;
-                border-radius: 7px;
-                padding: 0 10px;
-                &:focus {
-                    background-color: var(--sub-color);
-                }
-            }
-            .refresh-icon,
-            .edit-icon {
-                fill: var(--sub-text-color);
-                width: max-content;
-                cursor: pointer;
-                transition: all 0.2s;
-                padding: 20px;
-                &:hover {
-                    fill: var(--text-color);
-                }
-            }
-        }
-        .timer {
-            color: var(--main-color);
-            font-size: 150px;
-            padding: 50px;
-            font-weight: 100;
-            transition: all 0.2s;
-        }
-        .timerMisc {
-            display: flex;
-            flex-direction: row;
-            align-content: center;
-            padding: 50px 0;
-            .text,
-            .separator {
-                color: var(--main-color);
-                font-size: 30px;
-                font-weight: 100;
-                margin: 5px;
-            }
-            .separator {
+            flex-direction: column;
+            .scrambleContainer {
+                padding: 50px 0;
                 display: flex;
+                flex-direction: row;
                 align-items: center;
-                margin: 0;
-                color: var(--sub-text-color);
+                transition: ease 0.4s;
+                .scramble {
+                    color: var(--main-color);
+                    font-size: 40px;
+                    font-family: $primaryFont;
+                    font-weight: 100;
+                    min-width: 600px;
+                    transition: ease 0.4s;
+                    text-align: center;
+                    outline: none;
+                    border-radius: 7px;
+                    padding: 0 10px;
+                    &:focus {
+                        background-color: var(--sub-color);
+                    }
+                }
+                .refresh-icon,
+                .edit-icon {
+                    fill: var(--sub-text-color);
+                    width: max-content;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    padding: 20px;
+                    &:hover {
+                        fill: var(--text-color);
+                    }
+                }
+            }
+            .timer {
+                color: var(--main-color);
+                font-size: 150px;
+                padding: 50px;
+                font-weight: 100;
+                transition: all 0.2s;
+            }
+            .timerMisc {
+                display: flex;
+                flex-direction: row;
+                align-content: center;
+                padding: 50px 0;
+                .text {
+                    margin: 5px;
+                    display: flex;
+                    flex-direction: row;
+                    align-content: center;
+                    .dif,
+                    .value {
+                        color: var(--main-color);
+                        font-size: 30px;
+                        font-weight: 100;
+                    }
+                }
+                .dif {
+                    margin-right: 5px;
+                }
+                .value {
+                    color: var(--text-color) !important;
+                }
+                .separator {
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                    font-size: 30px;
+                    color: var(--sub-text-color);
+                }
+            }
+        }
+        .bottom {
+            .center {
+                text-align: center;
+                .theme {
+                    color: var(--sub-text-color);
+                    transition: all 0.2s;
+                    cursor: pointer;
+                    &:hover {
+                        color: var(--text-color);
+                    }
+                }
             }
         }
     }

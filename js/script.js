@@ -38,9 +38,7 @@ $(document).ready(function() {
         generateScramble();
 
         console.log(currentSession);
-        printScores();
-        printInViewer();
-        calcTimerMisc()
+        refresh()
     }
 });
 
@@ -84,9 +82,7 @@ $(document).on('keyup', asciCode => {
             $('.edit-icon').css('cursor', 'pointer');
             addToStorage()
             generateScramble()
-            printScores()
-            printInViewer()
-            calcTimerMisc()
+            refresh()
         }
     }
 })
@@ -184,10 +180,15 @@ $('.sessions').on('input', (element) => {
         scores = [];
         localStorage.setItem(`scores${currentSession}`, []);
     }
-    printScores();
-    calcTimerMisc();
-    printInViewer();
+    refresh()
 
+});
+
+$('.name-input').on('keydown', (e) => {
+    if (e.key === 'Enter') {
+        $('.add').click();
+        console.log('click enter');
+    }
 });
 
 $('.add').click(() => {
@@ -205,16 +206,14 @@ $('.add').click(() => {
     localStorage.setItem(`scores${currentSession}`, []);
     scores = []
 
-    loadSessions()
-    printScores();
-    printInViewer();
+    refresh()
 });
 
 $('.new').click(function(e) {
     $('.createSession').css('display', 'flex');
     $('.scoreViewer').css('display', 'none');
     scores = [];
-    printScores();
+    refresh()
     return;
 });
 
@@ -237,9 +236,16 @@ $('.remove').click(function(e) {
     console.log(sessions);
     scores = []
 
-    loadSessions()
-    printScores()
-    printInViewer()
+    refresh()
+});
+
+$('.clear').click(function(e) {
+    console.log("clear");
+
+    scores = []
+    localStorage.setItem(`scores${currentSession}`, JSON.stringify(scores));
+
+    refresh()
 });
 
 // End Menu Functions
@@ -289,32 +295,41 @@ $(".refresh-icon").click(function(e) {
 
 $('.edit-icon').click(function(e) {
     if (timerInterval == null) {
+        $('.scramble').attr('contenteditable', true);
         $('.scramble').focus();
     }
 });
 
+$('.scramble').focusout(() => {
+    $('.scramble').attr('contenteditable', false);
+});
+
 const calcTimerMisc = () => {
-    let [sum, mean, best, avg5, avg10] = [0, 0, 0, 0, 0]
-    let count = scores.length;
-    let timerMisc = $('.timerMisc .text');
-    var reversedScores = scores.slice().reverse();
-    var times = []
-    for (let i = 0; i < reversedScores.length; i++) {
-        sum += +reversedScores[i].time;
-        if (i == 4) {
-            avg5 = (sum / 5) | 0;
+    let [count, sum, mean, best, avg5, avg10] = [0, 0, 0, 0, 0, 0]
+    let timerMisc = $('.timerMisc .value');
+    if (scores.length !== 0) {
+        console.log("done");
+        count = scores.length;
+        var reversedScores = scores.slice().reverse();
+        var times = []
+        for (let i = 0; i < reversedScores.length; i++) {
+            sum += +reversedScores[i].time;
+            if (i == 4) {
+                avg5 = (sum / 5) | 0;
+            }
+            if (i == 9) {
+                avg10 = (sum / 10) | 0;
+            }
+            times.push(+reversedScores[i].time);
         }
-        if (i == 9) {
-            avg10 = (sum / 10) | 0;
-        }
-        times.push(+reversedScores[i].time);
+        mean = sum / count | 0
+        best = Math.min(...times) || 0
     }
-    mean = sum / count | 0
-    $(timerMisc[0]).text(`Mean: ${+msToHms(mean)}`)
-    $(timerMisc[1]).text(`Best: ${+msToHms(Math.min(...times))}`)
-    $(timerMisc[2]).text(`Count: ${count}`)
-    $(timerMisc[3]).text(`Avg5: ${+msToHms(avg5)}`)
-    $(timerMisc[4]).text(`Avg10: ${+msToHms(avg10)}`)
+    $(timerMisc[0]).text(`${count}`)
+    $(timerMisc[1]).text(`${+msToHms(best)}`)
+    $(timerMisc[2]).text(`${+msToHms(mean)}`)
+    $(timerMisc[3]).text(`${+msToHms(avg5)}`)
+    $(timerMisc[4]).text(`${+msToHms(avg10)}`)
 };
 // End Timer Functions
 
@@ -329,3 +344,10 @@ const addToStorage = () => {
     localStorage.setItem(`scores${currentSession}`, JSON.stringify(scores));
     // console.table(scores);
 };
+
+const refresh = () => {
+    loadSessions()
+    printScores()
+    printInViewer()
+    calcTimerMisc()
+}

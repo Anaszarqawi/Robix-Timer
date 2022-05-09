@@ -24,7 +24,7 @@ sans-serif;
     border-left: 1px var(--main-color) solid;
     z-index: 99999;
     background-color: var(--bg-color);
-    transition: ease-in-out 0.4s;
+    transition: ease 0.4s;
     .title {
         color: var(--text-color);
         text-align: center;
@@ -71,7 +71,7 @@ sans-serif;
             .sessions {
                 font-size: 20px;
                 border: none;
-                color: var(--text-color);
+                color: var(--main-color);
                 background-color: var(--sub-color);
                 outline: none;
                 border-radius: 0 7px 7px 0;
@@ -179,7 +179,7 @@ sans-serif;
             }
             .back,
             .next {
-                font-size: 20px;
+                font-size: 10px;
                 font-weight: 100;
                 color: var(--text-color);
                 margin: 0;
@@ -194,8 +194,8 @@ sans-serif;
                 max-width: auto;
                 &:hover {
                     // transform: scale(1.1);
-                    background-color: var(--main-color);
-                    color: var(--bg-color);
+                    // background-color: var(--main-color);
+                    color: var(--main-color);
                 }
             }
             .back {

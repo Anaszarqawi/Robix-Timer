@@ -33,7 +33,7 @@ body {
   grid-auto-flow: row;
   -ms-grid-rows: auto 1fr auto;
       grid-template-rows: auto 1fr auto;
-  max-width: 1230px;
+  max-width: 1240px;
   padding: 2rem;
   -webkit-transition: padding-top .125s;
   transition: padding-top .125s;
@@ -41,7 +41,7 @@ body {
   z-index: 999;
 }
 
-.container .middle {
+.container .center .middle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -57,7 +57,7 @@ body {
           flex-direction: column;
 }
 
-.container .middle .scrambleContainer {
+.container .center .middle .scrambleContainer {
   padding: 50px 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -73,7 +73,7 @@ body {
   transition: ease 0.4s;
 }
 
-.container .middle .scrambleContainer .scramble {
+.container .center .middle .scrambleContainer .scramble {
   color: var(--main-color);
   font-size: 40px;
   font-family: "Open Sans", sans-serif;
@@ -87,12 +87,12 @@ body {
   padding: 0 10px;
 }
 
-.container .middle .scrambleContainer .scramble:focus {
+.container .center .middle .scrambleContainer .scramble:focus {
   background-color: var(--sub-color);
 }
 
-.container .middle .scrambleContainer .refresh-icon,
-.container .middle .scrambleContainer .edit-icon {
+.container .center .middle .scrambleContainer .refresh-icon,
+.container .center .middle .scrambleContainer .edit-icon {
   fill: var(--sub-text-color);
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -103,12 +103,12 @@ body {
   padding: 20px;
 }
 
-.container .middle .scrambleContainer .refresh-icon:hover,
-.container .middle .scrambleContainer .edit-icon:hover {
+.container .center .middle .scrambleContainer .refresh-icon:hover,
+.container .center .middle .scrambleContainer .edit-icon:hover {
   fill: var(--text-color);
 }
 
-.container .middle .timer {
+.container .center .middle .timer {
   color: var(--main-color);
   font-size: 150px;
   padding: 50px;
@@ -117,7 +117,7 @@ body {
   transition: all 0.2s;
 }
 
-.container .middle .timerMisc {
+.container .center .middle .timerMisc {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -130,15 +130,35 @@ body {
   padding: 50px 0;
 }
 
-.container .middle .timerMisc .text,
-.container .middle .timerMisc .separator {
+.container .center .middle .timerMisc .text {
+  margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.container .center .middle .timerMisc .text .dif,
+.container .center .middle .timerMisc .text .value {
   color: var(--main-color);
   font-size: 30px;
   font-weight: 100;
-  margin: 5px;
 }
 
-.container .middle .timerMisc .separator {
+.container .center .middle .timerMisc .dif {
+  margin-right: 5px;
+}
+
+.container .center .middle .timerMisc .value {
+  color: var(--text-color) !important;
+}
+
+.container .center .middle .timerMisc .separator {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -146,7 +166,23 @@ body {
       -ms-flex-align: center;
           align-items: center;
   margin: 0;
+  font-size: 30px;
   color: var(--sub-text-color);
+}
+
+.container .center .bottom .center {
+  text-align: center;
+}
+
+.container .center .bottom .center .theme {
+  color: var(--sub-text-color);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.container .center .bottom .center .theme:hover {
+  color: var(--text-color);
 }
 
 .openMenuContainer {
